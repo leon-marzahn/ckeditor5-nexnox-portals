@@ -32,78 +32,80 @@ import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation';
 import CloudServices from '@ckeditor/ckeditor5-cloud-services/src/cloudservices';
 
-export default class ClassicEditor extends ClassicEditorBase {}
+import SimpleVideoPlugin from './plugins/simple-video/simple-video.plugin';
+
+export default class ClassicEditor extends ClassicEditorBase {
+}
 
 // Plugins to include in the build.
 ClassicEditor.builtinPlugins = [
-	Essentials,
-	UploadAdapter,
-	Autoformat,
-	Bold,
-	Italic,
-    Underline,
-	BlockQuote,
-	CKFinder,
-	CloudServices,
-	EasyImage,
-	Heading,
-	Image,
-	ImageCaption,
-	ImageStyle,
-	ImageToolbar,
-	ImageUpload,
-	Indent,
-	Link,
-	List,
-	MediaEmbed,
-	Paragraph,
-	PasteFromOffice,
-	Table,
-	TableToolbar,
-	TextTransformation
+  Essentials,
+  UploadAdapter,
+  Autoformat,
+  Bold,
+  Italic,
+  Underline,
+  BlockQuote,
+  CKFinder,
+  CloudServices,
+  EasyImage,
+  Heading,
+  Image,
+  ImageCaption,
+  ImageStyle,
+  ImageToolbar,
+  ImageUpload,
+  Indent,
+  Link,
+  List,
+  SimpleVideoPlugin,
+  MediaEmbed,
+  Paragraph,
+  PasteFromOffice,
+  Table,
+  TableToolbar,
+  TextTransformation
 ];
 
 // Editor configuration.
 ClassicEditor.defaultConfig = {
-	toolbar: {
-		items: [
-			'heading',
-			'|',
-			'bold',
-			'italic',
-		    'underline',
-			'link',
-			'bulletedList',
-			'numberedList',
-			'|',
-			'outdent',
-			'indent',
-			'|',
-			'uploadImage',
-			'blockQuote',
-			'insertTable',
-			'mediaEmbed',
-			'undo',
-			'redo'
-		]
-	},
-	image: {
-		toolbar: [
-			'imageStyle:inline',
-			'imageStyle:block',
-			'imageStyle:side',
-			'|',
-			'toggleImageCaption',
-			'imageTextAlternative'
-		]
-	},
-	table: {
-		contentToolbar: [
-			'tableColumn',
-			'tableRow',
-			'mergeTableCells'
-		]
-	},
-	// This value must be kept in sync with the language defined in webpack.config.js.
-	language: 'en'
+  toolbar: {
+    items: [
+      'heading',
+      '|',
+      'bold', 'italic', 'underline',
+      '|',
+      'bulletedList', 'numberedList', 'indent', 'outdent',
+      '|',
+      'insertTable', 'imageUpload',
+      '|',
+      'undo', 'redo'
+    ]
+  },
+  table: {
+    contentToolbar: [
+      'tableColumn',
+      'tableRow',
+      'mergeTableCells'
+    ]
+  },
+  image: {
+    toolbar: [
+      'imageTextAlternative',
+      '|',
+      'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight'
+    ],
+    styles: [
+      'alignCenter',
+      'alignLeft',
+      'alignRight'
+    ],
+    upload: {
+      types: [
+        'jpeg', 'png'
+      ]
+    }
+  },
+  // This value must be kept in sync with the language defined in webpack.config.js.
+  language: 'en'
 };

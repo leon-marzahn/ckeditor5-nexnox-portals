@@ -1,0 +1,14 @@
+.ck-widget.simple-video {
+  clear: both;
+  margin: .9em 0;
+  display: block;
+  min-width: 15em;
+}
+
+.ck-widget.simple-video .simple-video-wrapper {
+  margin: 0 auto;
+}
+
+.ck-widget.simple-video .simple-video-wrapper > div {
+  pointer-events: none;
+}
