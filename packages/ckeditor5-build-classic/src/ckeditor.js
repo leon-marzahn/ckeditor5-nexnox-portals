@@ -24,7 +24,6 @@ import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload';
 import Indent from '@ckeditor/ckeditor5-indent/src/indent';
 import Link from '@ckeditor/ckeditor5-link/src/link';
 import List from '@ckeditor/ckeditor5-list/src/list';
-import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice';
 import Table from '@ckeditor/ckeditor5-table/src/table';
@@ -33,6 +32,7 @@ import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformatio
 import CloudServices from '@ckeditor/ckeditor5-cloud-services/src/cloudservices';
 
 import SimpleVideoPlugin from './plugins/simple-video/simple-video.plugin';
+import NxMarkPlugin from './plugins/nx-mark/nx-mark.plugin';
 
 export default class ClassicEditor extends ClassicEditorBase {
 }
@@ -59,12 +59,12 @@ ClassicEditor.builtinPlugins = [
   Link,
   List,
   SimpleVideoPlugin,
-  MediaEmbed,
   Paragraph,
   PasteFromOffice,
   Table,
   TableToolbar,
-  TextTransformation
+  TextTransformation,
+  NxMarkPlugin
 ];
 
 // Editor configuration.
@@ -77,7 +77,7 @@ ClassicEditor.defaultConfig = {
       '|',
       'bulletedList', 'numberedList', 'indent', 'outdent',
       '|',
-      'insertTable', 'imageUpload',
+      'insertTable', 'imageUpload', 'simpleVideo',
       '|',
       'undo', 'redo'
     ]

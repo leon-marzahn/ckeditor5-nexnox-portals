@@ -3,7 +3,7 @@ import { toWidget } from '@ckeditor/ckeditor5-widget/src/utils';
 
 import InsertSimpleVideoCommand from './insert-simple-video.command';
 
-import './simple-video.css';
+import './theme/simple-video.css';
 
 export default class SimpleVideoEditing extends Plugin {
   static get pluginName() {
@@ -20,7 +20,7 @@ export default class SimpleVideoEditing extends Plugin {
   _defineSchema() {
     const schema = this.editor.model.schema;
 
-    schema.register('iframe', {
+    schema.register('simpleVideo', {
       isObject: true,
       allowWhere: '$block',
       allowAttributes: ['src']
@@ -30,33 +30,38 @@ export default class SimpleVideoEditing extends Plugin {
   _defineConverters() {
     this.editor.conversion.for('upcast').elementToElement({
       view: {
-        name: 'figure',
-        classes: 'simple-video'
+        name: 'iframe'
       },
-      model: (viewElement, { writer }) => {
-        return writer.createElement('iframe', {
-          src: viewElement.getChild(0).getChild(0).getChild(0).getAttribute('src')
-        });
-      }
+      model: (viewElement, { writer }) => upcastSimpleVideo(writer, viewElement)
     });
 
     this.editor.conversion.for('dataDowncast').elementToElement({
-      model: 'iframe',
-      view: (modelElement, { writer }) => downcastModelElement(writer, modelElement)
+      model: 'simpleVideo',
+      view: (modelElement, { writer }) => writer.createRawElement('iframe', {
+        src: modelElement.getAttribute('src') || '',
+        width: 640,
+        height: 360
+      })
     });
 
     this.editor.conversion.for('editingDowncast').elementToElement({
-      model: 'iframe',
-      view: (modelElement, { writer }) => {
-        return toWidget(downcastModelElement(writer, modelElement), writer, {
-          label: 'Simple video widget'
-        });
-      }
+      model: 'simpleVideo',
+      view: (modelElement, { writer }) => toWidget(downcastSimpleVideo(writer, modelElement), writer, {
+        label: 'Simple video widget'
+      })
     });
   }
 }
 
-function downcastModelElement(writer, modelElement) {
+function upcastSimpleVideo(writer, viewElement) {
+  const url = viewElement.getAttribute('src') || '';
+
+  return writer.createElement('simpleVideo', {
+    src: url
+  });
+}
+
+function downcastSimpleVideo(writer, modelElement) {
   const url = modelElement.getAttribute('src') || '';
   const simpleVideo = writer.createContainerElement('figure', {
     class: 'simple-video'
@@ -72,8 +77,10 @@ function downcastModelElement(writer, modelElement) {
 
   const iframe = writer.createRawElement('iframe', {
     src: url,
-    style: 'position: absolute; top: 0; left: 0; width: 100%; height: 100%;',
+    style: 'position: absolute; top: 0; left: 0;',
     frameborder: 0,
+    width: 640,
+    height: 360,
     allow: 'autoplay; encrypted-media',
     allowfullscreen: true
   });

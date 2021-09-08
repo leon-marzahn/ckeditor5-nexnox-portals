@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>CKEditor 5 – classic editor build – development sample</title>
-	<style>
-		body {
-			max-width: 800px;
-			margin: 20px auto;
-		}
-	</style>
+  <meta charset="utf-8">
+  <title>CKEditor 5 – classic editor build – development sample</title>
+  <style>
+    body {
+      max-width: 800px;
+      margin: 20px auto;
+    }
+  </style>
 </head>
 <body>
 
 <h1>CKEditor 5 – classic editor build – development sample</h1>
 
 <div id="editor">
+  <iframe src="https://youtube.com/embed/NC_L18ZJPhE" width="640" height="360"></iframe>
+  <iframe src="https://youtube.com/embed/wcGTqSllruM" width="640" height="360"></iframe>
+  <p>&nbsp;</p>
+  <p><mark data-mark="green">Green marked text</mark> <mark data-mark="red">Red marked text</mark></p>
 </div>
 
 <script src="../build/ckeditor.js"></script>
+<script src="../build/translations/de.js"></script>
 <script>
-	ClassicEditor.create( document.querySelector( '#editor' ) )
-		.then( editor => {
-			window.editor = editor;
-			editor.execute('insertSimpleVideo', 'NC_L18ZJPhE');
-			console.log(editor.model.getData());
-		} )
-		.catch( error => {
-			console.error( 'There was a problem initializing the editor.', error );
-		} );
+  ClassicEditor.create(document.querySelector('#editor'))
+    .then(editor => {
+      window.editor = editor;
+      console.log(window.editor.getData());
+    })
+    .catch(error => {
+      console.error('There was a problem initializing the editor.', error);
+    });
 </script>
 
 </body>

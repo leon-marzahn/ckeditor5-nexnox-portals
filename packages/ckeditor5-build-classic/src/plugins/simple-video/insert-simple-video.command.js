@@ -5,11 +5,10 @@ export default class InsertSimpleVideoCommand extends Command {
     const model = this.editor.model;
 
     model.change(writer => {
-      const iframeElement = writer.createElement('iframe', {
+      const iframeElement = writer.createElement('simpleVideo', {
         src: `https://www.youtube.com/embed/${id}`
       });
       model.insertContent(iframeElement);
-
       writer.setSelection(iframeElement, 'on');
     });
   }
@@ -17,7 +16,7 @@ export default class InsertSimpleVideoCommand extends Command {
   refresh() {
     const model = this.editor.model;
     const selection = model.document.selection;
-    const allowedIn = model.schema.findAllowedParent(selection.getFirstPosition(), 'iframe');
+    const allowedIn = model.schema.findAllowedParent(selection.getFirstPosition(), 'simpleVideo');
 
     this.isEnabled = allowedIn !== null;
   }
