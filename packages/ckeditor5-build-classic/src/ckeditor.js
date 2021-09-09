@@ -59,12 +59,12 @@ ClassicEditor.builtinPlugins = [
   Link,
   List,
   SimpleVideoPlugin,
+  NxMarkPlugin,
   Paragraph,
   PasteFromOffice,
   Table,
   TableToolbar,
-  TextTransformation,
-  NxMarkPlugin
+  TextTransformation
 ];
 
 // Editor configuration.
