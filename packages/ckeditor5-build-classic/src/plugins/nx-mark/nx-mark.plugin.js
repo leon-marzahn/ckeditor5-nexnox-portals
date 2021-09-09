@@ -1,6 +1,7 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
 
 import NxMarkEditing from './nx-mark.editing';
+import NxMarkUI from './nx-mark.ui';
 
 export default class NxMarkPlugin extends Plugin {
   static get pluginName() {
@@ -8,7 +9,7 @@ export default class NxMarkPlugin extends Plugin {
   }
 
   static get requires() {
-    return [NxMarkEditing];
+    return [NxMarkEditing, NxMarkUI];
   }
 
   init() {

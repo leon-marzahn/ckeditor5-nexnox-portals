@@ -18,6 +18,6 @@ export default class InsertSimpleVideoCommand extends Command {
     const selection = model.document.selection;
     const allowedIn = model.schema.findAllowedParent(selection.getFirstPosition(), 'simpleVideo');
 
-    this.isEnabled = allowedIn !== null;
+    this.isEnabled = allowedIn !== null && model.schema.checkAttributeInSelection(selection, 'src');
   }
 }

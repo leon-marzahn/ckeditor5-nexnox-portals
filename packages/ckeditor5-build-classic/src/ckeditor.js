@@ -73,7 +73,7 @@ ClassicEditor.defaultConfig = {
     items: [
       'heading',
       '|',
-      'bold', 'italic', 'underline',
+      'bold', 'italic', 'underline', 'nxMark',
       '|',
       'bulletedList', 'numberedList', 'indent', 'outdent',
       '|',

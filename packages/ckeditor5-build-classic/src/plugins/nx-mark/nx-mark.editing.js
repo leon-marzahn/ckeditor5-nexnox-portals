@@ -1,4 +1,5 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
+import NxMarkCommand from './nx-mark.command';
 
 import './theme/nx-mark.css';
 
@@ -11,14 +12,18 @@ export default class NxMarkEditing extends Plugin {
     this._defineSchema();
     this._defineConverters();
     this._definePostFixer();
+
+    this.editor.commands.add('nxMark', new NxMarkCommand(this.editor));
   }
 
   _defineSchema() {
     const schema = this.editor.model.schema;
 
+    schema.extend('$text', { allowAttributes: ['data-mark'] });
     schema.register('nxMark', {
       inheritAllFrom: '$text',
-      allowContentOf: '$block',
+      isObject: true,
+      allowChildren: '$text',
       allowAttributes: ['data-mark']
     });
   }
