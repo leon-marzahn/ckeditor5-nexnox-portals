@@ -1,5 +1,11 @@
 import { icons, Plugin } from '@ckeditor/ckeditor5-core';
-import { addToolbarToDropdown, ButtonView, createDropdown, SplitButtonView, ToolbarSeparatorView } from '@ckeditor/ckeditor5-ui';
+import {
+  addToolbarToDropdown,
+  ButtonView,
+  createDropdown,
+  SplitButtonView,
+  ToolbarSeparatorView
+} from '@ckeditor/ckeditor5-ui';
 
 import markerIcon from './icons/marker.svg';
 
@@ -33,10 +39,9 @@ export default class NxMarkUI extends Plugin {
   }
 
   _addMarkButton(option) {
-    const t = this.editor.t;
     const command = this.editor.commands.get('nxMark');
 
-    this._addButton(`nxMark:${option.key}`, t(option.title), markerIcon, option.key, button => {
+    this._addButton(`nxMark:${option.key}`, option.title, markerIcon, option.key, button => {
       button.bind('isEnabled').to(command, 'isEnabled');
       button.bind('isOn').to(command, 'value', value => value === option.key);
       button.iconView.fillColor = option.color;
@@ -45,20 +50,21 @@ export default class NxMarkUI extends Plugin {
   }
 
   _addRemoveMarkButton() {
-    const t = this.editor.t;
     const command = this.editor.commands.get('nxMark');
 
-    this._addButton('nxMark:remove', t('Remove mark'), icons.eraser, null, button => {
+    this._addButton('nxMark:remove', 'Remove mark', icons.eraser, null, button => {
       button.bind('isEnabled').to(command, 'isEnabled');
     });
   }
 
   _addButton(name, label, icon, value, decorateButton) {
+    const t = this.editor.t;
+
     this.editor.ui.componentFactory.add(name, locale => {
       const buttonView = new ButtonView(locale);
 
       buttonView.set({
-        label,
+        label: t(label),
         icon,
         tooltip: true
       });
