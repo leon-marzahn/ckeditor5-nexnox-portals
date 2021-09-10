@@ -33,6 +33,7 @@ import CloudServices from '@ckeditor/ckeditor5-cloud-services/src/cloudservices'
 
 import SimpleVideoPlugin from './plugins/simple-video/simple-video.plugin';
 import NxMarkPlugin from './plugins/nx-mark/nx-mark.plugin';
+import NxVarPlugin from './plugins/nx-var/nx-var.plugin';
 
 export default class ClassicEditor extends ClassicEditorBase {
 }
@@ -60,6 +61,7 @@ ClassicEditor.builtinPlugins = [
   List,
   SimpleVideoPlugin,
   NxMarkPlugin,
+  NxVarPlugin,
   Paragraph,
   PasteFromOffice,
   Table,

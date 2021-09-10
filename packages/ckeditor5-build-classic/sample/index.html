@@ -18,6 +18,8 @@
   <iframe src="https://youtube.com/embed/NC_L18ZJPhE" width="640" height="360"></iframe>
   <iframe src="https://youtube.com/embed/wcGTqSllruM" width="640" height="360"></iframe>
   <p><mark data-mark="green">Green marked text</mark> <mark data-mark="red">Red marked text</mark></p>
+  <p><span data-textvar>{{ ticket.title }}</span> <span data-textvar>{{ ticket.status }}</span></p>
+  <p data-textvar>{{ ticket.description }}</p>
 </div>
 
 <script src="../build/ckeditor.js"></script>
@@ -28,7 +30,7 @@
     .then(editor => {
       window.editor = editor;
       console.log(editor.getData());
-      // CKEditorInspector.attach(editor);
+      CKEditorInspector.attach(editor);
     })
     .catch(error => {
       console.error('There was a problem initializing the editor.', error);
