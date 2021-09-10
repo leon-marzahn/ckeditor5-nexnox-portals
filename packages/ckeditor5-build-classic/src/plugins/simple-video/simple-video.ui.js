@@ -4,8 +4,6 @@ import SimpleVideoFormView from './ui/simple-video-form.view';
 
 import simpleVideoIcon from './icons/media.svg';
 
-const youtubeUrlRegExp = new RegExp(/^(https:\/\/www\.youtube\.com\/watch\?v=)([A-Za-z0-9._%+-]+)$/);
-
 export default class SimpleVideoUI extends Plugin {
   static get pluginName() {
     return 'SimpleVideoUI';
@@ -13,11 +11,12 @@ export default class SimpleVideoUI extends Plugin {
 
   init() {
     const t = this.editor.t;
+    const config = this.editor.config;
     const command = this.editor.commands.get('insertSimpleVideo');
 
     this.editor.ui.componentFactory.add('simpleVideo', locale => {
       const dropdown = createDropdown(locale);
-      const simpleVideoForm = new SimpleVideoFormView(getFormValidators(this.editor.t), this.editor.locale);
+      const simpleVideoForm = new SimpleVideoFormView(getFormValidators(this.editor.t, config), this.editor.locale);
 
       this._setupDropdown(dropdown, simpleVideoForm, command);
       this._setupForm(dropdown, simpleVideoForm, command);
@@ -28,6 +27,7 @@ export default class SimpleVideoUI extends Plugin {
 
   _setupDropdown(dropdown, form, command) {
     const editor = this.editor;
+    const config = editor.config;
     const t = editor.t;
     const button = dropdown.buttonView;
 
@@ -50,10 +50,15 @@ export default class SimpleVideoUI extends Plugin {
 
     dropdown.on('submit', () => {
       if (form.isValid()) {
-        const matches = youtubeUrlRegExp.exec(form.video);
+        for (const platform of config.get('simpleVideo.platforms')) {
+          if (platform.match.test(form.video)) {
+            const matches = platform.match.exec(form.video);
+            const id = platform.getId(matches);
 
-        if (matches[2] && matches[2].length) {
-          editor.execute('insertSimpleVideo', matches[2]);
+            editor.execute('insertSimpleVideo', id, platform);
+
+            break;
+          }
         }
 
         closeUI();
@@ -76,7 +81,7 @@ export default class SimpleVideoUI extends Plugin {
   }
 }
 
-function getFormValidators(t) {
+function getFormValidators(t, config) {
   return [
     form => {
       if (!form.video.length) {
@@ -84,8 +89,18 @@ function getFormValidators(t) {
       }
     },
     form => {
-      if (!youtubeUrlRegExp.test(form.video)) {
-        return t('The URL must be a valid Youtube URL.');
+      let isValid = false;
+
+      for (const platform of config.get('simpleVideo.platforms')) {
+        isValid = platform.match.test(form.video);
+
+        if (isValid) {
+          break;
+        }
+      }
+
+      if (!isValid) {
+        return t('The URL must be a valid URL.');
       }
     }
   ];

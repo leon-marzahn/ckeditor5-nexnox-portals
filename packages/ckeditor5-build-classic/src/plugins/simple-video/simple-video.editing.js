@@ -10,6 +10,30 @@ export default class SimpleVideoEditing extends Plugin {
     return 'SimpleVideoEditing';
   }
 
+  constructor(editor) {
+    super(editor);
+
+    this.editor.config.define('simpleVideo', {
+      platforms: [
+        {
+          key: 'youtube',
+          match: /^(https:\/\/(www\.)?youtube\.com\/watch\?v=)([A-Za-z0-9._%+-]+)$/,
+          getId: matches => matches[3] && matches[3].length ? matches[3] : null,
+          getEmbed: id => `https://www.youtube.com/embed/${id}`
+        },
+        {
+          key: 'vimeo',
+          match: /^(https:\/\/(www\.)?vimeo\.com\/)([0-9]+)$/,
+          getId: matches => {
+            console.log(matches);
+            return matches[3] && matches[3].length ? matches[3] : null;
+          },
+          getEmbed: id => `https://player.vimeo.com/video/${id}`
+        }
+      ]
+    });
+  }
+
   init() {
     this._defineSchema();
     this._defineConverters();
@@ -22,7 +46,7 @@ export default class SimpleVideoEditing extends Plugin {
 
     schema.register('simpleVideo', {
       isObject: true,
-      allowWhere: '$block',
+      allowIn: '$root',
       allowAttributes: ['src']
     });
   }

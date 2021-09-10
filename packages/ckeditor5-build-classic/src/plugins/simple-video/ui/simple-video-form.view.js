@@ -127,7 +127,7 @@ export default class SimpleVideoFormView extends View {
     const labeledInput = new LabeledFieldView(this.locale, createLabeledInputText);
     const inputField = labeledInput.fieldView;
 
-    this._videoInputInfoDefault = t('Paste the Youtube URL in the input.');
+    this._videoInputInfoDefault = t('Paste the URL in the input.');
 
     labeledInput.label = t('Video URL');
 

@@ -18,10 +18,10 @@ export default class SimpleVideoPlugin extends Plugin {
     add('de', {
       'Insert video': 'Video einfügen',
       'Video URL': 'Video Adresse',
-      'Paste the Youtube URL in the input.': 'Youtube-Adresse in das Eingabefeld einfügen.',
+      'Paste the URL in the input.': 'Adresse in das Eingabefeld einfügen.',
 
       'The URL must not be empty.': 'Die Adresse darf nicht leer sein.',
-      'The URL must be a valid Youtube URL.': 'Die Adresse muss eine gültige Youtube-Adresse sein.'
+      'The URL must be a valid URL.': 'Die Adresse muss eine gültige Adresse sein.'
     });
   }
 }

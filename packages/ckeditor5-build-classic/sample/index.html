@@ -24,7 +24,7 @@
 <script src="../../../node_modules/@ckeditor/ckeditor5-inspector/build/inspector.js"></script>
 <script src="../build/translations/de.js"></script>
 <script>
-  ClassicEditor.create(document.querySelector('#editor'))
+  ClassicEditor.create(document.querySelector('#editor'), { language: 'de' })
     .then(editor => {
       window.editor = editor;
       console.log(editor.getData());
