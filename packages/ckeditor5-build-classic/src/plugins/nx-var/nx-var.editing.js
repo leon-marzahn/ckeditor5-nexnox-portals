@@ -1,5 +1,7 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
 
+import './theme/nx-var.css';
+
 export default class NxVarEditing extends Plugin {
   static get pluginName() {
     return 'NxVarEditing';
@@ -13,43 +15,40 @@ export default class NxVarEditing extends Plugin {
   _defineSchema() {
     const schema = this.editor.model.schema;
 
-    schema.extend('$text', {
+    schema.register('nxVar', {
+      isObject: true,
+      allowIn: '$block',
+      allowChildren: ['$text'],
       allowAttributes: ['data-textvar']
     });
 
-    schema.extend('paragraph', {
+    schema.register('nxVarParagraph', {
+      isObject: true,
+      allowIn: '$root',
+      allowChildren: ['$text'],
       allowAttributes: ['data-textvar']
     });
   }
 
   _defineConverters() {
     /* Inline */
-    this.editor.conversion.for('upcast').elementToAttribute({
+    this.editor.conversion.for('upcast').elementToElement({
       view: {
         name: 'span',
         attributes: 'data-textvar'
       },
-      model: {
-        key: 'data-textvar',
-        value: viewElement => viewElement.getAttribute('data-textvar')
-      }
+      model: (modelElement, { writer }) => writer.createElement('nxVar')
     });
 
     this.editor.conversion.for('dataDowncast').elementToElement({
-      model: {
-        name: '$text',
-        attributes: 'data-textvar'
-      },
+      model: 'nxVar',
       view: (viewElement, { writer }) => writer.createContainerElement('span', {
         'data-textvar': ''
       })
     });
 
     this.editor.conversion.for('editingDowncast').elementToElement({
-      model: {
-        name: '$text',
-        attributes: 'data-textvar'
-      },
+      model: 'nxVar',
       view: (viewElement, { writer }) => writer.createContainerElement('span', {
         class: 'nx-var',
         'data-textvar': ''
@@ -62,33 +61,25 @@ export default class NxVarEditing extends Plugin {
         name: 'p',
         attributes: 'data-textvar'
       },
-      model: (viewElement, { writer }) => writer.createElement('paragraph', {
-        'data-textvar': viewElement.getAttribute('data-textvar')
-      }),
+      model: (viewElement, { writer }) => writer.createElement('nxVarParagraph'),
       converterPriority: 'highest'
     });
 
     this.editor.conversion.for('dataDowncast').elementToElement({
-      model: {
-        name: 'paragraph',
-        attributes: 'data-textvar'
-      },
-      view: (viewElement, { writer }) => writer.createContainerElement('p', {
+      model: 'nxVarParagraph',
+      view: (modelElement, { writer }) => writer.createContainerElement('p', {
         'data-textvar': ''
       }),
-      converterPriority: 'highest'
+      converterPriority: 'high'
     });
 
     this.editor.conversion.for('editingDowncast').elementToElement({
-      model: {
-        name: 'paragraph',
-        attributes: 'data-textvar'
-      },
-      view: (viewElement, { writer }) => writer.createContainerElement('p', {
+      model: 'nxVarParagraph',
+      view: (modelElement, { writer }) => writer.createContainerElement('p', {
         class: 'nx-var',
         'data-textvar': ''
       }),
-      converterPriority: 'highest'
+      converterPriority: 'high'
     });
   }
 }
