@@ -61,7 +61,7 @@ ClassicEditor.builtinPlugins = [
   List,
   SimpleVideoPlugin,
   NxMarkPlugin,
-  NxVarPlugin,
+  // NxVarPlugin,
   Paragraph,
   PasteFromOffice,
   Table,
