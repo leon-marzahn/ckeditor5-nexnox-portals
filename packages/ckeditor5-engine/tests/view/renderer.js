@@ -1,9 +1,9 @@
 /**
- * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
-/* globals document, window, NodeFilter, MutationObserver, HTMLImageElement */
+/* globals document, window, NodeFilter, MutationObserver, HTMLImageElement, console */
 
 import View from '../../src/view/view';
 import ViewElement from '../../src/view/element';
@@ -3970,12 +3970,21 @@ describe( 'Renderer', () => {
 			}
 		} );
 
-		describe( 'script tag should not be executed', () => {
+		describe( 'filtering out unsafe content', () => {
 			let view, viewDoc, viewRoot, domRoot;
 
 			beforeEach( () => {
 				view = new View( new StylesProcessor() );
-				view.domConverter.experimentalRenderingMode = true;
+
+				testUtils.sinon.stub( console, 'warn' )
+					.withArgs( sinon.match( /^domconverter-unsafe-attribute-detected/ ) )
+					.callsFake( () => {} );
+
+				console.warn
+					.withArgs( sinon.match( /^domconverter-unsafe-element-detected/ ) )
+					.callsFake( () => {} );
+
+				console.warn.callThrough();
 
 				viewDoc = view.document;
 				domRoot = document.createElement( 'div' );

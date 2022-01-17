@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -11,7 +11,6 @@ import Widget from '@ckeditor/ckeditor5-widget/src/widget';
 
 import { modelTable } from '../_utils/utils';
 import TableEditing from '../../src/tableediting';
-import { assertEqualMarkup } from '@ckeditor/ckeditor5-utils/tests/_utils/utils';
 
 describe( 'upcastTable()', () => {
 	let editor, model;
@@ -36,7 +35,7 @@ describe( 'upcastTable()', () => {
 	} );
 
 	function expectModel( data ) {
-		assertEqualMarkup( getModelData( model, { withoutSelection: true } ), data );
+		expect( getModelData( model, { withoutSelection: true } ) ).to.equalMarkup( data );
 	}
 
 	it( 'should convert table figure', () => {
