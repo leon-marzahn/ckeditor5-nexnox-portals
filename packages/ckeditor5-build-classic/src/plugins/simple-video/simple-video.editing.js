@@ -63,6 +63,7 @@ export default class SimpleVideoEditing extends Plugin {
       model: 'simpleVideo',
       view: (modelElement, { writer }) => writer.createRawElement('iframe', {
         src: modelElement.getAttribute('src') || '',
+		allow: 'fullscreen',
         width: 640,
         height: 360
       })
@@ -105,8 +106,7 @@ function downcastSimpleVideo(writer, modelElement) {
     frameborder: 0,
     width: 640,
     height: 360,
-    allow: 'autoplay; encrypted-media',
-    allowfullscreen: true
+    allow: 'autoplay; encrypted-media; fullscreen'
   });
 
   writer.insert(writer.createPositionAt(iframeWrapper, 0), iframe);
