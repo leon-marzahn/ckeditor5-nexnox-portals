@@ -16,7 +16,6 @@ import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote';
 import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 import EasyImage from '@ckeditor/ckeditor5-easy-image/src/easyimage';
 import Heading from '@ckeditor/ckeditor5-heading/src/heading';
-import Image from '@ckeditor/ckeditor5-image/src/image';
 import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption';
 import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle';
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar';
@@ -31,10 +30,11 @@ import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation';
 import CloudServices from '@ckeditor/ckeditor5-cloud-services/src/cloudservices';
 import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize';
+import ImageBlock from '@ckeditor/ckeditor5-image/src/imageblock';
 
 import SimpleVideoPlugin from './plugins/simple-video/simple-video.plugin';
 import NxMarkPlugin from './plugins/nx-mark/nx-mark.plugin';
-import NxVarPlugin from './plugins/nx-var/nx-var.plugin';
+import NxImageOverridePlugin from './plugins/nx-image-override/nx-image-override.plugin';
 
 export default class ClassicEditor extends ClassicEditorBase {
 }
@@ -52,7 +52,7 @@ ClassicEditor.builtinPlugins = [
   CloudServices,
   EasyImage,
   Heading,
-  Image,
+  ImageBlock,
   ImageCaption,
   ImageStyle,
   ImageToolbar,
@@ -64,6 +64,7 @@ ClassicEditor.builtinPlugins = [
   SimpleVideoPlugin,
   NxMarkPlugin,
   // NxVarPlugin,
+  NxImageOverridePlugin,
   Paragraph,
   PasteFromOffice,
   Table,
@@ -74,41 +75,40 @@ ClassicEditor.builtinPlugins = [
 // Editor configuration.
 ClassicEditor.defaultConfig = {
   toolbar: {
-    items: [
-      'heading',
-      '|',
-      'bold', 'italic', 'underline', 'nxMark',
-      '|',
-      'bulletedList', 'numberedList', 'indent', 'outdent',
-      '|',
-      'insertTable', 'imageUpload', 'simpleVideo',
-      '|',
-      'undo', 'redo'
-    ]
+	items: [
+	  'heading',
+	  '|',
+	  'bold', 'italic', 'underline', 'nxMark',
+	  '|',
+	  'bulletedList', 'numberedList', 'indent', 'outdent',
+	  '|',
+	  'insertTable', 'imageUpload', 'simpleVideo',
+	  '|',
+	  'undo', 'redo'
+	]
   },
   table: {
-    contentToolbar: [
-      'tableColumn',
-      'tableRow',
-      'mergeTableCells'
-    ]
+	contentToolbar: [
+	  'tableColumn',
+	  'tableRow',
+	  'mergeTableCells'
+	]
   },
   image: {
-    toolbar: [
-      'imageTextAlternative',
-      '|',
-      'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight'
-    ],
-    styles: [
-      'alignCenter',
-      'alignLeft',
-      'alignRight'
-    ],
-    upload: {
-      types: [
-        'jpeg', 'png'
-      ]
-    }
+	toolbar: [
+	  'imageTextAlternative'
+	],
+	insert: {
+	  type: 'block'
+	},
+	styles: {
+	  options: []
+	},
+	upload: {
+	  types: [
+		'jpeg', 'png'
+	  ]
+	}
   },
   // This value must be kept in sync with the language defined in webpack.config.js.
   language: 'en'
