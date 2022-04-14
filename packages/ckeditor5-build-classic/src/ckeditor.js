@@ -104,6 +104,7 @@ ClassicEditor.defaultConfig = {
 	styles: {
 	  options: []
 	},
+	resizeUnit: 'px',
 	upload: {
 	  types: [
 		'jpeg', 'png'
