@@ -34,7 +34,6 @@ import ImageBlock from '@ckeditor/ckeditor5-image/src/imageblock';
 
 import SimpleVideoPlugin from './plugins/simple-video/simple-video.plugin';
 import NxMarkPlugin from './plugins/nx-mark/nx-mark.plugin';
-import NxImageOverridePlugin from './plugins/nx-image-override/nx-image-override.plugin';
 
 export default class ClassicEditor extends ClassicEditorBase {
 }
@@ -64,7 +63,6 @@ ClassicEditor.builtinPlugins = [
   SimpleVideoPlugin,
   NxMarkPlugin,
   // NxVarPlugin,
-  NxImageOverridePlugin,
   Paragraph,
   PasteFromOffice,
   Table,
@@ -75,41 +73,41 @@ ClassicEditor.builtinPlugins = [
 // Editor configuration.
 ClassicEditor.defaultConfig = {
   toolbar: {
-	items: [
-	  'heading',
-	  '|',
-	  'bold', 'italic', 'underline', 'nxMark',
-	  '|',
-	  'bulletedList', 'numberedList', 'indent', 'outdent',
-	  '|',
-	  'insertTable', 'imageUpload', 'simpleVideo',
-	  '|',
-	  'undo', 'redo'
-	]
+    items: [
+      'heading',
+      '|',
+      'bold', 'italic', 'underline', 'nxMark',
+      '|',
+      'bulletedList', 'numberedList', 'indent', 'outdent',
+      '|',
+      'insertTable', 'imageUpload', 'simpleVideo',
+      '|',
+      'undo', 'redo'
+    ]
   },
   table: {
-	contentToolbar: [
-	  'tableColumn',
-	  'tableRow',
-	  'mergeTableCells'
-	]
+    contentToolbar: [
+      'tableColumn',
+      'tableRow',
+      'mergeTableCells'
+    ]
   },
   image: {
-	toolbar: [
-	  'imageTextAlternative'
-	],
-	insert: {
-	  type: 'block'
-	},
-	styles: {
-	  options: []
-	},
-	resizeUnit: 'px',
-	upload: {
-	  types: [
-		'jpeg', 'png'
-	  ]
-	}
+    toolbar: [
+      'imageTextAlternative'
+    ],
+    insert: {
+      type: 'block'
+    },
+    styles: {
+      options: []
+    },
+    resizeUnit: 'px',
+    upload: {
+      types: [
+        'jpeg', 'png'
+      ]
+    }
   },
   // This value must be kept in sync with the language defined in webpack.config.js.
   language: 'en'
